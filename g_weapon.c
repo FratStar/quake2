@@ -401,7 +401,10 @@ static void Grenade_Explode (edict_t *ent)
 		else
 			mod = MOD_GRENADE;
 		T_Damage (ent->enemy, ent, ent->owner, dir, ent->s.origin, vec3_origin, (int)points, (int)points, DAMAGE_RADIUS, mod);
+
+
 	}
+
 
 	if (ent->spawnflags & 2)
 		mod = MOD_HELD_GRENADE;
@@ -443,23 +446,30 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 		G_FreeEdict (ent);
 		return;
 	}
-
+	//Grenades shoot out rockets upon impact
 	if (!other->takedamage)
 	{
 		if (ent->spawnflags & 1)
 		{
-			if (random() > 0.5)
+			if (random() > 0.5){
+				fire_rocket (ent, ent->s.origin, plane->normal, 100, 650, 120, 120);
 				gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/hgrenb1a.wav"), 1, ATTN_NORM, 0);
-			else
+			}
+			else{
+				fire_rocket (ent, ent->s.origin, plane->normal, 100, 650, 120, 120);
 				gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/hgrenb2a.wav"), 1, ATTN_NORM, 0);
+			}
 		}
 		else
 		{
+			fire_rocket (ent, ent->s.origin, plane->normal, 100, 650, 120, 120);
 			gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/grenlb1b.wav"), 1, ATTN_NORM, 0);
 		}
 		return;
 	}
-
+	
+	
+	
 	ent->enemy = other;
 	Grenade_Explode (ent);
 }
@@ -534,6 +544,7 @@ void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int 
 
 	if (timer <= 0.0)
 		Grenade_Explode (grenade);
+		
 	else
 	{
 		gi.sound (self, CHAN_WEAPON, gi.soundindex ("weapons/hgrent1a.wav"), 1, ATTN_NORM, 0);
@@ -594,6 +605,10 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 		gi.WriteByte (TE_ROCKET_EXPLOSION);
 	gi.WritePosition (origin);
 	gi.multicast (ent->s.origin, MULTICAST_PHS);
+	//rockets launch grenades
+	if(ent->rocketGen){
+		fire_grenade (ent, ent->s.origin, plane->normal, 50, 600, 2.5, 120);
+	}
 
 	G_FreeEdict (ent);
 }
@@ -623,6 +638,17 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	rocket->dmg_radius = damage_radius;
 	rocket->s.sound = gi.soundindex ("weapons/rockfly.wav");
 	rocket->classname = "rocket";
+	//rockert bounce 4 times
+	if (self->client){
+		//if you're a player
+		rocket->rocketGen = 4;
+	}
+	else if(self->rocketGen > 0){
+		rocket->rocketGen = (self->rocketGen - 1);
+	}
+	else{
+		rocket->rocketGen = 0;
+	}
 
 	if (self->client)
 		check_dodge (self, rocket->s.origin, dir, speed);

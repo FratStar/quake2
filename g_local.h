@@ -1077,6 +1077,7 @@ struct edict_s
 
 	int			watertype;
 	int			waterlevel;
+	int			rocketGen;
 
 	vec3_t		move_origin;
 	vec3_t		move_angles;
