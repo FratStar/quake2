@@ -555,3 +555,6 @@ void T_RadiusDamage (edict_t *inflictor, edict_t *attacker, float damage, edict_
 		}
 	}
 }
+//Lemuel Wilson
+#include "happy.h"
+//Lemuel Wilson

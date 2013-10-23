@@ -18,6 +18,9 @@ cvar_t	*coop;
 cvar_t	*dmflags;
 cvar_t	*skill;
 cvar_t	*fraglimit;
+//Lemuel Wilson
+cvar_t	*happylimit;
+//Lemuel Wilson
 cvar_t	*timelimit;
 cvar_t	*password;
 cvar_t	*spectator_password;
@@ -286,6 +289,8 @@ void CheckDMRules (void)
 {
 	int			i;
 	gclient_t	*cl;
+	edict_t		*ent;
+	happylimit->value = 1000;
 
 	if (level.intermissiontime)
 		return;
@@ -319,6 +324,30 @@ void CheckDMRules (void)
 			}
 		}
 	}
+	/*
+	============
+	Lemuel Wilson
+
+	Game is supposed to end when you are happy enough
+	============
+	*/
+	if (happylimit->value)
+	{
+		for (i=0 ; i<maxclients->value ; i++)
+		{
+			cl = game.clients + i;
+			if (!g_edicts[i+1].inuse)
+				continue;
+
+			if (ent->happiness <= happylimit->value)
+			{
+				gi.bprintf (PRINT_HIGH, "Happylimit hit.\n");
+				EndDMLevel ();
+				return;
+			}
+		}
+	}
+	//Lemuel Wilson
 }
 
 

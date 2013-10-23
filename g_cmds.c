@@ -875,7 +875,7 @@ void Cmd_PlayerList_f(edict_t *ent)
 	for (i = 0, e2 = g_edicts + 1; i < maxclients->value; i++, e2++) {
 		if (!e2->inuse)
 			continue;
-
+		//Lemuel Wilson
 		Com_sprintf(st, sizeof(st), "%02d:%02d %4d %3d %s%s\n",
 			(level.framenum - e2->client->resp.enterframe) / 600,
 			((level.framenum - e2->client->resp.enterframe) % 600)/10,

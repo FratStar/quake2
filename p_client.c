@@ -364,6 +364,11 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				message = "tried to invade";
 				message2 = "'s personal space";
 				break;
+			//Lemuel Wilson
+				case MOD_QTIP:
+				message = "was smached by";
+				break;
+			//Lemuel Wilson
 			}
 			if (message)
 			{
@@ -372,6 +377,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				{
 					if (ff)
 						attacker->client->resp.score--;
+
 					else
 						attacker->client->resp.score++;
 				}
@@ -605,7 +611,10 @@ void InitClientPersistant (gclient_t *client)
 
 	client->pers.health			= 100;
 	client->pers.max_health		= 100;
-
+	//Lemuel Wilson
+	client->pers.happiness		= 15;
+	client->pers.max_happiness	= 150;
+	//Lemuel Wilson
 	client->pers.max_bullets	= 200;
 	client->pers.max_shells		= 100;
 	client->pers.max_rockets	= 50;
@@ -646,9 +655,14 @@ void SaveClientData (void)
 			continue;
 		game.clients[i].pers.health = ent->health;
 		game.clients[i].pers.max_health = ent->max_health;
+		//Lemuel Wilson
+		game.clients[i].pers.happiness = ent->happiness;
+		game.clients[i].pers.max_happiness = ent->max_happiness;
+		//Lemuel Wilson
 		game.clients[i].pers.savedFlags = (ent->flags & (FL_GODMODE|FL_NOTARGET|FL_POWER_ARMOR));
 		if (coop->value)
 			game.clients[i].pers.score = ent->client->resp.score;
+			
 	}
 }
 
@@ -656,11 +670,14 @@ void FetchClientEntData (edict_t *ent)
 {
 	ent->health = ent->client->pers.health;
 	ent->max_health = ent->client->pers.max_health;
+	//Lemuel Wilson
+	ent->happiness = ent->client->pers.happiness;
+	ent->max_happiness = ent->client->pers.max_happiness;
+	//Lemuel Wilson
 	ent->flags |= ent->client->pers.savedFlags;
 	if (coop->value)
 		ent->client->resp.score = ent->client->pers.score;
 }
-
 
 
 /*
@@ -698,6 +715,10 @@ float	PlayersRangeFromSpot (edict_t *spot)
 
 		if (player->health <= 0)
 			continue;
+		//Lemuel Wilson
+		if (player->happiness <= 0)
+			continue;
+		//Lemuel Wilson
 
 		VectorSubtract (spot->s.origin, player->s.origin, v);
 		playerdistance = VectorLength (v);
@@ -1141,6 +1162,11 @@ void PutClientInServer (edict_t *ent)
 	client->pers = saved;
 	if (client->pers.health <= 0)
 		InitClientPersistant(client);
+	//Lemuel Wilson
+	if (client->pers.happiness <=0){
+		InitClientPersistant(client);
+	}
+	//Lemuel Wilson
 	client->resp = resp;
 
 	// copy some data from the client to the entity
@@ -1535,6 +1561,11 @@ trace_t	PM_trace (vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 {
 	if (pm_passent->health > 0)
 		return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);
+	//Lemuel Wilson
+	else if (pm_passent->happiness > 0){
+		return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);
+	}
+	//Lemuel Wilson
 	else
 		return gi.trace (start, mins, maxs, end, pm_passent, MASK_DEADSOLID);
 }
@@ -1569,6 +1600,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	gclient_t	*client;
 	edict_t	*other;
 	int		i, j;
+	float	bonc = 100;
 	pmove_t	pm;
 
 	level.current_entity = ent;
@@ -1585,6 +1617,18 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	}
 
 	pm_passent = ent;
+
+	//Lemuel Wilson
+	if (ent->groundentity && !ent->bounce)
+	{
+		PlayerBounce(ent, 0, 0, bonc);
+		bonc -= 15;
+	}
+
+	while (ent->happiness > 15){
+		ent->happiness -= 20;
+	}
+	//Lemeul Wilson
 
 	if (ent->client->chase_target) {
 
