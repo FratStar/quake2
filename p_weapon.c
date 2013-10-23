@@ -1413,3 +1413,6 @@ void Weapon_BFG (edict_t *ent)
 
 
 //======================================================================
+//Lemuel Wilson
+#include "qtip.h"
+//Lemuel Wilson

@@ -398,7 +398,20 @@ void Cmd_Use_f (edict_t *ent)
 		gi.cprintf (ent, PRINT_HIGH, "Out of item: %s\n", s);
 		return;
 	}
-
+	//Lemuel Wilson
+	//to allow multiple weapons from one keypress
+ 
+    else if (!Q_stricmp(s, ent->client->pers.weapon->pickup_name)) {    
+        if (!Q_stricmp(s, "Blaster")){
+            it = FindItem ("Qtip");
+ 
+       } 
+	   else if (!Q_stricmp(s, "Shotgun")){
+            it = FindItem ("SuperShotgun");
+       } 
+ 
+    }
+	//Lemuel Wilson
 	it->use (ent, it);
 }
 
