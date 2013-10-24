@@ -479,6 +479,7 @@ void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int spee
 {
 	edict_t	*bolt;
 	trace_t	tr;
+	edict_t *head;
 
 	VectorNormalize (dir);
 
@@ -520,6 +521,15 @@ void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int spee
 		VectorMA (bolt->s.origin, -10, dir, bolt->s.origin);
 		bolt->touch (bolt, tr.ent, NULL, NULL);
 	}
+	head = G_Spawn();
+	VectorCopy(self->s.origin,head->s.origin);
+	head->s.origin[2]+50;
+	SP_misc_gib_head(head);
+	SP_misc_gib_head(head);
+
+	gi.linkentity(head);
+
+	G_FreeEdict(self);
 }	
 
 
