@@ -7,9 +7,6 @@
 // because we define the full size ones in this file
 #define	GAME_INCLUDE
 #include "game.h"
-//Lemuel Wilson
-#include "bounce.h"
-//Lemuel Wilson
 
 // the "gameversion" client command will print this plus compile date
 #define	GAMEVERSION	"baseq2"
@@ -509,9 +506,12 @@ extern	cvar_t	*coop;
 extern	cvar_t	*dmflags;
 extern	cvar_t	*skill;
 extern	cvar_t	*fraglimit;
+<<<<<<< HEAD
 //Lemuel Wilson
 extern	cvar_t	*happylimit;//pmt9 what is a cvar_t
 //Lemuel Wilson
+=======
+>>>>>>> parent of 4846580... Thisshitworking
 extern	cvar_t	*timelimit;
 extern	cvar_t	*password;
 extern	cvar_t	*spectator_password;
@@ -834,10 +834,7 @@ typedef struct
 	int			health;
 	int			max_health;
 	int			savedFlags;
-	//Lemuel Wilson
-	int			happiness;
-	int			max_happiness;
-	//Lemuel Wilson
+
 	int			selected_item;
 	int			inventory[MAX_ITEMS];
 
@@ -868,7 +865,7 @@ typedef struct
 	int			enterframe;			// level.framenum the client entered the game
 	int			score;				// frags, etc
 	vec3_t		cmd_angles;			// angles sent over in the last command
-	
+
 	qboolean	spectator;			// client is a spectator
 } client_respawn_t;
 
@@ -1050,10 +1047,6 @@ struct edict_s
 
 	int			health;
 	int			max_health;
-	//Lemuel Wilson
-	int			happiness;
-	int			max_happiness;
-	//Lemuel Wilson
 	int			gib_health;
 	int			deadflag;
 	qboolean	show_hostile;
@@ -1110,8 +1103,5 @@ struct edict_s
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
-	//Lemuel Wilson
-	qboolean		bounce;
-	//Lemuel Wilson
 };
 
