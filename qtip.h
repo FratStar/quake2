@@ -46,7 +46,7 @@ void fire_qtip ( edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kic
             if (tr.ent->takedamage)            
             {
                 //This tells us to damage the thing that in our path...hehe
-                T_Damage (tr.ent, self, self, aimdir, tr.endpos, tr.plane.normal, damage, kick, 0, 0);
+                Track_Happy (tr.ent, self, self, aimdir, tr.endpos, tr.plane.normal, damage, 0, 0);
                 gi.sound (self, CHAN_AUTO, gi.soundindex("misc/fhit3.wav") , 1, ATTN_NORM, 0); 
  
             }        
@@ -105,4 +105,4 @@ void Weapon_Qtip (edict_t *ent)
 }
  
 //
-//!Pridkett
+//Lemuel Wilson - Courtesy of Pridkett
