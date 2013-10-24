@@ -510,7 +510,7 @@ extern	cvar_t	*dmflags;
 extern	cvar_t	*skill;
 extern	cvar_t	*fraglimit;
 //Lemuel Wilson
-extern	cvar_t	*happylimit;
+extern	cvar_t	*happylimit;//pmt9 what is a cvar_t
 //Lemuel Wilson
 extern	cvar_t	*timelimit;
 extern	cvar_t	*password;

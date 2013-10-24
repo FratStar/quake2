@@ -400,9 +400,9 @@ void Cmd_Use_f (edict_t *ent)
 	}
 	//Lemuel Wilson
 	//to allow multiple weapons from one keypress
- 
+	//Pmt9 THAT IS AWESOME
     else if (!Q_stricmp(s, ent->client->pers.weapon->pickup_name)) {    
-        if (!Q_stricmp(s, "Blaster")){
+        if (!Q_stricmp(s, "Blaster")){//pmt9 How does it go back to the first fire mode
             it = FindItem ("Qtip");
  
        } 
@@ -875,7 +875,7 @@ void Cmd_PlayerList_f(edict_t *ent)
 	for (i = 0, e2 = g_edicts + 1; i < maxclients->value; i++, e2++) {
 		if (!e2->inuse)
 			continue;
-		//Lemuel Wilson
+		//Lemuel Wilson //pmt9 What are you changing 
 		Com_sprintf(st, sizeof(st), "%02d:%02d %4d %3d %s%s\n",
 			(level.framenum - e2->client->resp.enterframe) / 600,
 			((level.framenum - e2->client->resp.enterframe) % 600)/10,

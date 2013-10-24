@@ -366,7 +366,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				break;
 			//Lemuel Wilson
 				case MOD_QTIP:
-				message = "was smached by";
+				message = "was smached by";//pmt9 TYPO
 				break;
 			//Lemuel Wilson
 			}
@@ -598,7 +598,7 @@ void InitClientPersistant (gclient_t *client)
 	memset (&client->pers, 0, sizeof(client->pers));
 
 	//Lemuel Wilson
-	item = FindItem("Qtip");
+	item = FindItem("Qtip"); 
 	client->pers.inventory[ITEM_INDEX(item)] = 1;
 	//Lemuel Wilson
 
@@ -613,7 +613,7 @@ void InitClientPersistant (gclient_t *client)
 	client->pers.max_health		= 100;
 	//Lemuel Wilson
 	client->pers.happiness		= 15;
-	client->pers.max_happiness	= 150;
+	client->pers.max_happiness	= 150;//pmt9 WE WENT PAST THE MAX IN TESTING
 	//Lemuel Wilson
 	client->pers.max_bullets	= 200;
 	client->pers.max_shells		= 100;
@@ -656,7 +656,7 @@ void SaveClientData (void)
 		game.clients[i].pers.health = ent->health;
 		game.clients[i].pers.max_health = ent->max_health;
 		//Lemuel Wilson
-		game.clients[i].pers.happiness = ent->happiness;
+		game.clients[i].pers.happiness = ent->happiness;//pmt9 Keeps the player happiness
 		game.clients[i].pers.max_happiness = ent->max_happiness;
 		//Lemuel Wilson
 		game.clients[i].pers.savedFlags = (ent->flags & (FL_GODMODE|FL_NOTARGET|FL_POWER_ARMOR));
@@ -671,7 +671,7 @@ void FetchClientEntData (edict_t *ent)
 	ent->health = ent->client->pers.health;
 	ent->max_health = ent->client->pers.max_health;
 	//Lemuel Wilson
-	ent->happiness = ent->client->pers.happiness;
+	ent->happiness = ent->client->pers.happiness; //pmt9 inits happiness for everyone
 	ent->max_happiness = ent->client->pers.max_happiness;
 	//Lemuel Wilson
 	ent->flags |= ent->client->pers.savedFlags;
@@ -716,8 +716,8 @@ float	PlayersRangeFromSpot (edict_t *spot)
 		if (player->health <= 0)
 			continue;
 		//Lemuel Wilson
-		if (player->happiness <= 0)
-			continue;
+		if (player->happiness <= 0)//pmt9 why does is need to be less than 0
+			continue;//pmt9 what happens if player->happiness is more than 0
 		//Lemuel Wilson
 
 		VectorSubtract (spot->s.origin, player->s.origin, v);
@@ -1164,7 +1164,7 @@ void PutClientInServer (edict_t *ent)
 		InitClientPersistant(client);
 	//Lemuel Wilson
 	if (client->pers.happiness <=0){
-		InitClientPersistant(client);
+		InitClientPersistant(client);//pmt9 what does InitClientPersistant do
 	}
 	//Lemuel Wilson
 	client->resp = resp;
@@ -1563,7 +1563,7 @@ trace_t	PM_trace (vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 		return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);
 	//Lemuel Wilson
 	else if (pm_passent->happiness > 0){
-		return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);
+		return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);//pmt9 Why are you tracing
 	}
 	//Lemuel Wilson
 	else
@@ -1619,14 +1619,14 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	pm_passent = ent;
 
 	//Lemuel Wilson
-	if (ent->groundentity && !ent->bounce)
+	if (ent->groundentity && !ent->bounce)//pmt9 BOUNCE DOENST WORK IN TESTING ANYMORE
 	{
 		PlayerBounce(ent, 0, 0, bonc);
-		bonc -= 15;
+		bonc -= 15;//pmt9 Why does the bounce decrease
 	}
 
 	while (ent->happiness > 15){
-		ent->happiness -= 20;
+		ent->happiness -= 20;//pmt9 Why are we subtracting happiness if the happiness gets more than 15
 	}
 	//Lemeul Wilson
 
