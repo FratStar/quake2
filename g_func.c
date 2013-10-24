@@ -421,10 +421,6 @@ void Touch_Plat_Center (edict_t *ent, edict_t *other, cplane_t *plane, csurface_
 		
 	if (other->health <= 0)
 		return;
-	//Lemuel Wilson
-	if (other->happiness <= 0)
-		return;
-	//Lemuel Wilson
 
 	ent = ent->enemy;	// now point at the plat, not the trigger
 	if (ent->moveinfo.state == STATE_BOTTOM)
@@ -691,10 +687,6 @@ void button_return (edict_t *self)
 
 	if (self->health)
 		self->takedamage = DAMAGE_YES;
-	//Lemuel Wilson
-	if (self->happiness)
-		self->takedamage = DAMAGE_YES;
-	//Lemuel Wilson
 }
 
 void button_wait (edict_t *self)
@@ -736,10 +728,6 @@ void button_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *s
 
 	if (other->health <= 0)
 		return;
-	//Lemuel Wilson
-	if (other->happiness <= 0)
-		return;
-	//Lemuel wilson
 
 	self->activator = other;
 	button_fire (self);
@@ -749,9 +737,6 @@ void button_killed (edict_t *self, edict_t *inflictor, edict_t *attacker, int da
 {
 	self->activator = attacker;
 	self->health = self->max_health;
-	//Lemuel Wilson
-	self->happiness = self->max_happiness;
-	//Lemuel Wilson
 	self->takedamage = DAMAGE_NO;
 	button_fire (self);
 }
@@ -797,13 +782,6 @@ void SP_func_button (edict_t *ent)
 		ent->die = button_killed;
 		ent->takedamage = DAMAGE_YES;
 	}
-	//Lemuel Wilson
-	if (ent->happiness){
-		ent->max_happiness = ent->happiness;
-		ent->die = button_killed;
-		ent->takedamage = DAMAGE_YES;
-	}
-	//Lemuel Wilson
 	else if (! ent->targetname)
 		ent->touch = button_touch;
 

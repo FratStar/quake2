@@ -747,29 +747,20 @@ char *dm_statusbar =
 "num 3 14 "
 
 // spectator
-"if 18 " //was 17
+"if 17 "
   "xv 0 "
   "yb -58 "
   "string2 \"SPECTATOR MODE\" "
 "endif "
 
 // chase camera
-"if 17 " //was 16
+"if 16 "
   "xv 0 "
   "yb -68 "
   "string \"Chasing\" "
   "xv 64 "
   "stat_string 16 "
 "endif "
-
-//Happiness display Lemuel Wilson
-"xv 75"	//X value away from the left of the screen
-//"	yb		-48"
-"	num 4 16"		//Display 4 digits and the num 16 stat
-"xv		xv 125"			//X values for left of screen for icon.
-//"yb		-48"	//Y values for bottom of the screen for icon
-//"pic 0"				//Pic that is showed
-//Lemuel Wilson
 ;
 
 

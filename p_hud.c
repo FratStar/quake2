@@ -366,11 +366,6 @@ void G_SetStats (edict_t *ent)
 	//
 	ent->client->ps.stats[STAT_HEALTH_ICON] = level.pic_health;
 	ent->client->ps.stats[STAT_HEALTH] = ent->health;
-	
-	//Lemuel Wilson
-	//happiness
-	//
-	ent->client->ps.stats[STAT_HAPPINESS] = ent->happiness;
 
 	//
 	// ammo
@@ -554,3 +549,4 @@ void G_SetSpectatorStats (edict_t *ent)
 	else
 		cl->ps.stats[STAT_CHASE] = 0;
 }
+

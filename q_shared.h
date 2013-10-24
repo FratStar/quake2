@@ -987,9 +987,8 @@ typedef enum
 #define	STAT_LAYOUTS			13
 #define	STAT_FRAGS				14
 #define	STAT_FLASHES			15		// cleared each frame, 1 = health, 2 = armor
-#define STAT_HAPPINESS			16		// Lemuel Wilson Making happiness a stat.
-#define STAT_CHASE				17
-#define STAT_SPECTATOR			18
+#define STAT_CHASE				16
+#define STAT_SPECTATOR			17
 
 #define	MAX_STATS				32
 

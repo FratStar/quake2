@@ -105,4 +105,4 @@ void Weapon_Qtip (edict_t *ent)
 }
  
 //
-//Lemuel Wilson
+//!Pridkett
